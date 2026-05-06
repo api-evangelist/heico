@@ -9,106 +9,80 @@ alignedWith:
 provider: HEICO Corporation
 providerId: heico
 publisherName: HEICO Corporation
-serviceCategory: API
+serviceCategory: Aerospace / Defense
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Aerospace
   - Aviation
   - Defense
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the HEICO Corporation API surface. Provides a FOCUS-aligned
-  mapping for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
+notes: HEICO is a hardware / aerospace component conglomerate, not a SaaS / API vendor. There is no
+  invoice surface for API consumption to track in FinOps; spend with HEICO is purchase-order-based against
+  components and parts. Meters here are stubs documenting that shape.
+description: 'FOCUS-aligned FinOps stub for HEICO. HEICO does not bill for API access; spend is component
+  purchase-order based.'
+sources:
+  - https://www.heico.com/
+billingModel:
+  pricingCategory: Purchase Order (Goods)
+  billingFrequency: Per-Invoice
+  billingCurrency: USD
+  chargeCategories:
+    - Purchase
+    - Tax
+    - Adjustment
+focusColumns:
+  ServiceName: HEICO Corporation
+  ServiceCategory: Aerospace / Defense
+  ProviderName: HEICO Corporation
+  PublisherName: HEICO Corporation
+  InvoiceIssuerName: HEICO Corporation (operating subsidiary)
+  PricingCategory: Purchase
+  PricingUnit: part
+  BillingCurrency: USD
+  ChargeCategory: Purchase
 principles:
   - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
+    description: Track spend through procurement / ERP systems against HEICO PO numbers and component part
+      numbers. There is no public usage API to call.
   - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
+    description: Allocate component spend to fleet, aircraft tail, or program through ERP cost-center tags.
   - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
+    description: Levers are procurement-side - alternative-source qualification, overhaul-versus-replace
+      decisions, and volume agreements.
   - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
+    description: Procurement / supply-chain owns the relationship and PO lifecycle; engineering owns
+      part-substitution decisions.
 domains:
   - name: Understand Usage and Cost
     capabilities:
-      - Data Ingestion
       - Allocation
       - Reporting and Analytics
-      - Anomaly Management
   - name: Quantify Business Value
     capabilities:
       - Planning and Estimating
       - Forecasting
       - Budgeting
-      - Benchmarking
-      - Unit Economics
   - name: Optimize Usage and Cost
     capabilities:
-      - Architecting for Cloud
       - Rate Optimization
       - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
   - name: Manage the FinOps Practice
     capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
       - Invoicing and Chargeback
-      - Onboarding Workloads
       - Intersecting Disciplines
-billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
-  billingCurrency: USD
-  chargeCategories:
-    - Usage
-    - Purchase
-    - Tax
-    - Credit
-    - Adjustment
-  chargeFrequency: Recurring
-focusColumns:
-  ServiceName: HEICO Corporation
-  ServiceCategory: Developer Tools / API
-  ProviderName: HEICO Corporation
-  PublisherName: HEICO Corporation
-  InvoiceIssuerName: HEICO Corporation
-  PricingCategory: Usage-Based
-  PricingUnit: request
-  BillingCurrency: USD
-  ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: component_purchases
+    description: Component / part purchase-order line items
+    unit: part
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
+      - subsidiary
+      - part_number
+      - aircraft_program
 apis:
   - name: HEICO Corporation API
     baseURL: https://api.heico.com
@@ -117,14 +91,11 @@ apis:
       - Aviation
       - Defense
     serviceName: HEICO Corporation API
-    serviceCategory: API
+    serviceCategory: Aerospace / Defense
 unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+  - name: Cost per Component
+    metric: po_total / parts_received
+    target: per procurement agreement
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
