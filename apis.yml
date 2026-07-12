@@ -28,6 +28,8 @@ apis:
     description: >-
       The HEICO Corporation API provides access to platform services and data for enterprise integration and automation.
 common:
+  - type: DomainSecurity
+    url: security/heico-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/heico-corporation
   - type: Website
