@@ -1,6 +1,6 @@
 aid: heico
 url: https://raw.githubusercontent.com/api-evangelist/heico/refs/heads/main/apis.yml
-name: HEICO Corporation
+name: HEICO
 type: Index
 deliveryModel:
   model: unknown
@@ -60,3 +60,4 @@ common:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-legal-name: HEICO Corporation
