@@ -98,7 +98,6 @@ apis:
 unitEconomics:
   - name: Cost per Component
     metric: po_total / parts_received
-    target: per procurement agreement
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
