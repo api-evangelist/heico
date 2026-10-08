@@ -51,6 +51,12 @@ apis:
     description: >-
       The HEICO Corporation API provides access to platform services and data for enterprise integration and automation.
 common:
+  - type: Plans
+    url: plans/heico-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/heico-rate-limits.yml
+  - type: FinOps
+    url: finops/heico-finops.yml
   - type: DomainSecurity
     url: security/heico-domain-security.yml
   - type: LinkedIn
